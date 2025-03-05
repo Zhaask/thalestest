@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Lista de Empleados</h1>
+    <form action="/" method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="id" class="form-control" placeholder="Ingrese ID del empleado">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </form>
+
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <table class="table table-striped" th:if="${employees}">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Salario Mensual</th>
+            <th>Salario Anual</th>
+            <th>Edad</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="emp, iterStat : ${employees}">
+            <td th:text="${emp.id}"></td>
+            <td th:text="${emp.employeeName}"></td>
+            <td th:text="${emp.employeeSalary}"></td>
+            <td th:text="${annualSalaries[iterStat.index]}"></td>
+            <td th:text="${emp.employeeAge}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${employee}">
+        <h2>Detalle del Empleado</h2>
+        <p><strong>ID:</strong> <span th:text="${employee.id}"></span></p>
+        <p><strong>Nombre:</strong> <span th:text="${employee.employeeName}"></span></p>
+        <p><strong>Salario Anual:</strong> <span th:text="${annualSalary}"></span></p>
+    </div>
+</div>
+</body>
+</html>
